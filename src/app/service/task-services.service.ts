@@ -24,24 +24,21 @@ export class TaskServicesService {
       }
   
       if (payload.filters.status && payload.filters.status.length>0) {
-        const statusFilter = Array.isArray(payload.filters.status)
-          ? payload.filters.status.join('&status=')
-          : `status=${payload.filters.status}`;
-        requests.push(this.http.get<any>(`${baseUrl}?status=${statusFilter}`));
+        payload.filters.status.forEach((filterValue) => {
+          requests.push(this.http.get<any>(`${baseUrl}?status=${filterValue}`));
+        });
       }
   
       if (payload.filters.title && payload.filters.title.length>0) {
-        const titleFilter = Array.isArray(payload.filters.title)
-          ? payload.filters.title.join('&title=')
-          : `title=${payload.filters.title}`;
-        requests.push(this.http.get<any>(`${baseUrl}?title=${titleFilter}`));
+        payload.filters.title.forEach((filterValue) => {
+          requests.push(this.http.get<any>(`${baseUrl}?title=${filterValue}`));
+        });
       }
 
       if (payload.filters.description && payload.filters.description.length>0) {
-        const descriptionFilter = Array.isArray(payload.filters.description)
-          ? payload.filters.description.join('&title=')
-          : `description=${payload.filters.description}`;
-        requests.push(this.http.get<any>(`${baseUrl}?description=${descriptionFilter}`));
+        payload.filters.description.forEach((filterValue) => {
+          requests.push(this.http.get<any>(`${baseUrl}?description=${filterValue}`));
+        });
       }
       
       if(Object.keys(payload.filters).length === 0){
